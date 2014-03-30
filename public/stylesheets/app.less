@@ -1,0 +1,31 @@
+@import "../periodic/component.navigation-header/stylesheets/component.navigation-header.less"; 
+@import "../periodic/component-static.list-view/stylesheets/component-static.list-view.less"; 
+@import "../periodic/component-static.media-list-view/stylesheets/component-static.media-list-view.less"; 
+@import "../periodic/component.full-width-slideshow/stylesheets/component.full-width-slideshow.less"; 
+@import "../periodic/component.list-view-scroll/stylesheets/component.list-view-scroll.less"; 
+
+@media screen and (max-width: 65em){
+  body {
+    font-size: medium;
+  }  
+}
+
+body {
+	margin-top: 3em;
+  	background:#fcfcfc;
+  	
+  	.container{
+  		&:first-child{
+  			.row:first-child{
+  				padding-top: 1em;
+  			}
+  		}
+  		.row{
+  			background: #fff;
+  		}	
+  	}
+}
+
+a{
+  color: #00B7FF;
+}

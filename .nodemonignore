@@ -1,0 +1,7 @@
+/public/*     # static files
+/logs/*     # static files
+/app/resources/browserify/src/*     # static files
+./README.md   # a specific file
+*.css         # ignore any CSS files too
+*.less         # ignore any CSS files too
+*.ejs         # ignore any CSS files too

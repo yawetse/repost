@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	 	<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<title>Periodic: Web Component - list view scroll</title>
+		<meta name="description" content="An on scroll effect template that animates the sides of sections once they are in the viewport" />
+		<meta name="keywords" content="Periodic Decoupled Framework, ui, ux, dom" />
+		<meta name="author" content="Periodic" />
+		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="../dist/stylesheets/component-static.list-view.css">
+		<link rel="stylesheet" type="text/css" href="stylesheets/example.css">
+		<script type="text/javascript" src="scripts/example.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<div id="scrollerhtml">fsd</div>
+				</div>
+				<div class="col-md-4">
+					<div id="anotherscrollerhtml">sd</div>
+				</div>
+				<div class="col-md-4">
+					<div id="anotherscrollerhtml2">sd</div>
+				</div>
+			</div>
+		</div>
+
+		<script id="component-template" type="javscript/template">
+			<% 
+				var config = contentspec.config,
+					content = contentspec.content,
+					layout = contentspec.layout,
+					bsgridcol="";
+				function getBootstrapGrid(grid){
+					var bootstrapClass="";
+
+					for(var x in grid){
+						switch (grid[x].size){
+							case "small":
+								bsgridcol="sm";
+								break;
+
+							case "medium":
+							default:
+								bsgridcol="md";
+								break;
+						}
+						bootstrapClass+=" col-"+bsgridcol+"-"+(12/grid[x].columns)+" ";
+					}
+
+					return bootstrapClass;
+				}
+			%>
+			<div id="<%= config.html.dom_id %>" class="<%= config.html.dom_id %> p_cs_ls-id">
+				<header><%= config.html.dom_title %></header>
+					<section id="<%= config.html.dom_id %>-section" class="p_cs_lv-section <%= config.html.dom_id %>">
+						<% if(layout && layout.engine==="bootstrap"){%>
+							<ul class="row">
+								<% for(x in content){ %>
+									<li class="<%- getBootstrapGrid(layout.grid) %>">
+										<a href="<%= content[x].url %>"><%= content[x].title %></a>
+									</li>
+								<% } %>
+							</ul>
+						<%} else{%>
+							<ul>
+								<% for(x in content){ %>
+									<li>
+										<a href="<%= content[x].url %>"><%= content[x].title %></a>
+									</li>
+								<% } %>
+							</ul>
+						<%}%>
+					</section>
+			</div>
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,79 @@
+<% include ../shared/header %>
+<% 
+	var spec = periodicLayout.layoutspec; 
+	
+
+	function renderSection(spec,section){
+		switch(section.sectiontype){
+			case "container":
+				%>	
+				<div 
+					<%- renderAttrHtml(
+						appendAttr(section.attributes,{"name":"class","value":"container"})
+						) %> 
+				>
+					<div class="row">
+					
+						<% for(var y in section.cols){
+							renderCol(section.cols[y],section.cols.length);
+						} %>
+					</div>
+				</div>
+				<%
+				break;
+			case "fullwidth":
+				%>
+				<%- section.html %>
+				<%
+				break;
+		}
+	}
+
+	function renderCol(col,numOfCols){
+		var colspacing=(12/numOfCols);
+		%>
+		<div class="col-md-<%= colspacing %>">
+			<% 	
+				var templatefile = locals[col.template],
+					templatedata = eval(col.data); 
+				locals[col.wrapper]=eval(col.data); 
+			%>
+			<%- periodicModule(col.template,templatedata) %>
+
+
+		</div>
+		<%
+	}
+
+
+	function appendAttr(attr,appendee){
+		if(attr){
+			if(attr[appendee.name]){
+				attr[appendee.name]+=" "+[appendee.value];
+			}
+			else{
+				attr[appendee.name]=[appendee.value];
+			}
+		}
+		else{
+			attr = {};
+			attr[appendee.name]=[appendee.value];
+		}
+		return attr;
+	}
+
+
+	function renderAttrHtml(attr){
+		var attrHtml ="";
+		for(var x in attr){
+			attrHtml+=x+'="'+attr[x]+'"';
+		}
+		return attrHtml;
+	}
+
+	for(var x in spec.content.sections){
+		renderSection(spec.layout,spec.content.sections[x]);
+	}
+%>
+<%- spec.layout.engine %>
+<% include ../shared/footer %>

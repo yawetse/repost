@@ -1,0 +1,14 @@
+.DS_Store
+lib-cov
+coverage.html
+.git*
+docs/
+examples/
+support/
+test/
+testing.js
+node_modules
+node_modules/*
+!.gitignore
+logs/*
+!logs

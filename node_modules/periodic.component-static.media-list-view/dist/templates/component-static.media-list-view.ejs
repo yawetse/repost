@@ -1,0 +1,61 @@
+<% 
+	var config = contentspec.config,
+		content = contentspec.content,
+		layout = contentspec.layout,
+		bsgridcol="";
+	function getBootstrapGrid(grid){
+		var bootstrapClass="";
+
+		for(var x in grid){
+			switch (grid[x].size){
+				case "small":
+					bsgridcol="sm";
+					break;
+
+				case "medium":
+				default:
+					bsgridcol="md";
+					break;
+			}
+			bootstrapClass+=" col-"+bsgridcol+"-"+(12/grid[x].columns)+" ";
+		}
+
+		return bootstrapClass;
+	}
+%>
+<div id="<%= config.html.dom_id %>" class="<%= config.html.dom_id %> p_cs_mlv-id">
+	<header><%= config.html.dom_title %></header>
+		<section id="<%= config.html.dom_id %>-section" class="p_cs_lv-section <%= config.html.dom_id %>">
+			<% if(layout && layout.engine==="bootstrap"){%>
+				<ul class="row">
+					<% for(x in content){ %>
+						<li class="<%- getBootstrapGrid(layout.grid) %>">
+						<div class="row">
+						<figure class="col-md-12 col-sm-12 col-xs-4">
+							<a href="<%= content[x].url %>"><%- content[x].media %></a>
+						</figure>
+						<article class="col-md-12 col-sm-12 col-xs-8">
+							<a href="<%= content[x].url %>"><%= content[x].title %></a>
+							<p><%= content[x].dek %></p>
+						</article>
+						</div>
+						</li>
+					<% } %>
+				</ul>
+			<%} else{%>
+				<ul>
+					<% for(x in content){ %>
+						<li>
+						<figure>
+							<a href="<%= content[x].url %>"><%- content[x].media %></a>
+						</figure>
+						<article>
+							<a href="<%= content[x].url %>"><%= content[x].title %></a>
+							<p><%= content[x].dek %></p>
+						</article>
+						</li>
+					<% } %>
+				</ul>
+			<%}%>
+		</section>
+</div>
